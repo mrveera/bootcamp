@@ -1,0 +1,3 @@
+1.Too many branches ( cyclomatic complexity)
+2.Feature envy ( SRP )
+
