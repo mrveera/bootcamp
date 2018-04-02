@@ -50,4 +50,11 @@ public class CompareTest {
         Unit twoInches = Unit.inInch(2);
         assertEquals(twoInches,fiveCentimeters);
     }
+
+    @Test
+    public void fourInchesShouldBeEqualToTenCentimeter() {
+        Unit tenCentimeter = Unit.inCentimeters(10.15);
+        Unit fourInch = Unit.inInch(4);
+        assertEquals(fourInch,tenCentimeter);
+    }
 }

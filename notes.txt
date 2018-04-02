@@ -1,0 +1,10 @@
+1.Too many branches ( cyclomatic complexity)
+2.Feature envy ( SRP )
+
+3.Rules for breaking encapsulation
+    1.getters
+    2.public
+    3.setters
+
+
+

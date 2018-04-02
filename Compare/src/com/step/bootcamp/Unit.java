@@ -27,6 +27,7 @@ public class Unit {
         Unit length = (Unit) o;
         double inInches = unit.convertIntoBaseUnit(value);
         double otherUnitInInches = length.unit.convertIntoBaseUnit(length.value);
+        System.out.println(inInches+""+otherUnitInInches);
         return Double.compare(inInches, otherUnitInInches) == 0;
     }
 
