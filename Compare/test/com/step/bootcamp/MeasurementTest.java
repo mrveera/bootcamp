@@ -58,7 +58,7 @@ public class MeasurementTest {
     }
 
     @Test
-    public void tenMillimetersShouldbeEqualToOneCentimeter() {
+    public void tenMillimetersShouldBeEqualToOneCentimeter() {
         Measurement oneCentimeter = Measurement.inCentimeters(1);
         Measurement tenMillimeters = Measurement.inMillimeter(10);
         assertEquals(oneCentimeter,tenMillimeters);
@@ -79,14 +79,14 @@ public class MeasurementTest {
     }
 
     @Test
-    public void oneKgShouldbeEqualToThousandGrams() {
+    public void oneKgShouldBeEqualToThousandGrams() {
         Measurement oneKiloGram = Measurement.inKilograms(1);
         Measurement thousandGrams = Measurement.inGrams(1000);
         assertEquals(oneKiloGram,thousandGrams);
     }
 
     @Test
-    public void oneTonShouldbeEqualToThousandKg() {
+    public void oneTonShouldBeEqualToThousandKg() {
         Measurement oneTon = Measurement.inTon(1);
         Measurement thousandKg = Measurement.inKilograms(1000);
         assertEquals(oneTon,thousandKg);
