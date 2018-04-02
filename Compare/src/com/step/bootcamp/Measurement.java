@@ -27,7 +27,8 @@ public class Measurement {
         Measurement length = (Measurement) o;
         double inBaseunit = unit.toBaseUnit(value);
         double otherInBaseUnit = length.unit.toBaseUnit(length.value);
-        return Double.compare(inBaseunit, otherInBaseUnit) == 0;
+//        return Double.compare(inBaseunit, otherInBaseUnit) == 0 && unit.getStandardUnit()==length.unit.getStandardUnit();
+        return Double.compare(inBaseunit, otherInBaseUnit) == 0 && unit.isOfSameBaseUnit(length.unit);
     }
 
     @Override
@@ -58,5 +59,17 @@ public class Measurement {
 
     public static Measurement inGallon(double gallons) {
         return new Measurement(gallons,UnitsOfVolume.GALLON);
+    }
+
+    public static Measurement inKilograms(double kg) {
+        return new Measurement(kg,UnitsOfWeight.KILOGRAM);
+    }
+
+    public static Measurement inGrams(double grams) {
+        return new Measurement(grams,UnitsOfWeight.GRAM);
+    }
+
+    public static Measurement inTon(double tons) {
+        return new Measurement(tons,UnitsOfWeight.TON);
     }
 }

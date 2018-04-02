@@ -3,6 +3,7 @@ package com.step.bootcamp;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 
 
@@ -64,9 +65,30 @@ public class MeasurementTest {
     }
 
     @Test
-    public void oneGallonShouldbeEqualToThreePointSevenEightLitres() {
+    public void oneGallonShouldBeEqualToThreePointSevenEightLitres() {
         Measurement threePointSevenEightLitres = Measurement.inLitres(3.78);
         Measurement oneGallon = Measurement.inGallon(1);
         assertEquals(oneGallon,threePointSevenEightLitres);
+    }
+
+    @Test
+    public void oneGallonShouldNotBeEqualToOneInch() {
+        Measurement oneInch = Measurement.inInch(1);
+        Measurement oneLitre = Measurement.inLitres(1);
+        assertNotEquals(oneLitre,oneInch);
+    }
+
+    @Test
+    public void oneKgShouldbeEqualToThousandGrams() {
+        Measurement oneKiloGram = Measurement.inKilograms(1);
+        Measurement thousandGrams = Measurement.inGrams(1000);
+        assertEquals(oneKiloGram,thousandGrams);
+    }
+
+    @Test
+    public void oneTonShouldbeEqualToThousandKg() {
+        Measurement oneTon = Measurement.inTon(1);
+        Measurement thousandKg = Measurement.inKilograms(1000);
+        assertEquals(oneTon,thousandKg);
     }
 }

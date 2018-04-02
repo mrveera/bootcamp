@@ -1,5 +1,6 @@
 package com.step.bootcamp;
 
 interface Unit {
-    public double toBaseUnit(double quantity);
+    double toBaseUnit(double quantity);
+    boolean isOfSameBaseUnit(Unit unit);
 }

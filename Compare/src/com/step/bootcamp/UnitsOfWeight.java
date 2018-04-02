@@ -1,23 +1,22 @@
 package com.step.bootcamp;
 
-public enum UnitsOfVolume implements Unit {
-    LITRE(1) ,
-    GALLON(3.78);
+public enum UnitsOfWeight implements Unit{
+GRAM(1),
+    KILOGRAM(1000), TON(1000*1000);
 
     private final double conversionFactor;
 
-    UnitsOfVolume(double conversionFactor) {
+    UnitsOfWeight(double conversionFactor) {
         this.conversionFactor = conversionFactor;
     }
 
-
     @Override
     public double toBaseUnit(double quantity) {
-        return conversionFactor*quantity;
+        return this.conversionFactor * quantity;
     }
 
     @Override
     public boolean isOfSameBaseUnit(Unit unit) {
-        return this.getClass() == unit.getClass();
+        return this.getClass()==unit.getClass();
     }
 }
