@@ -25,7 +25,9 @@ public class Unit {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Unit length = (Unit) o;
-        return Double.compare(unit.convertIntoBaseUnit(value),length.unit.convertIntoBaseUnit(length.value)) == 0;
+        double inInches = unit.convertIntoBaseUnit(value);
+        double otherUnitInInches = length.unit.convertIntoBaseUnit(length.value);
+        return Double.compare(inInches, otherUnitInInches) == 0;
     }
 
     @Override
@@ -33,4 +35,15 @@ public class Unit {
         return Objects.hash(value);
     }
 
+    public static Unit inCentimeters(double centimeters) {
+        return new Unit(centimeters,UnitsOfLength.CENTIMETER);
+    }
+
+    @Override
+    public String toString() {
+        return "Unit{" +
+                "value=" + value +
+                ", unit=" + unit +
+                '}';
+    }
 }

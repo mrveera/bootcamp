@@ -2,8 +2,10 @@ package com.step.bootcamp;
 
 import org.junit.Test;
 
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertThat;
 
 
 public class CompareTest {
@@ -40,5 +42,12 @@ public class CompareTest {
         Unit oneFoot = Unit.inFeet(0.5);
         Unit sixInches = Unit.inInch(6);
         assertEquals(oneFoot,sixInches);
+    }
+
+    @Test
+    public void twoInchShouldBeEqualToFiveCentimeter() {
+        Unit fiveCentimeters = Unit.inCentimeters(5);
+        Unit twoInches = Unit.inInch(2);
+        assertEquals(twoInches,fiveCentimeters);
     }
 }
