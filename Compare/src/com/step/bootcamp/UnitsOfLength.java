@@ -1,7 +1,9 @@
 package com.step.bootcamp;
 
-public enum UnitsOfLength {
-    INCH(1),FEET(12),CENTIMETER(0.393701);
+public enum UnitsOfLength implements Unit {
+    INCH(1),FEET(12),
+    CENTIMETER(0.393701),
+    MILLI_METER(0.0393701);
 
     private final double conversionFactor;
 
@@ -9,7 +11,9 @@ public enum UnitsOfLength {
         this.conversionFactor = conversionFactor;
     }
 
-    public double convertIntoBaseUnit(double quantity){
+    @Override
+    public double toBaseUnit(double quantity) {
         return Math.round((quantity * conversionFactor)*10)/10;
     }
+
 }
