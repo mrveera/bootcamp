@@ -116,7 +116,23 @@ public class MeasurementTest {
         Measurement twoInches = Measurement.inInch(2);
         Measurement twoPoint5cm = Measurement.inCentimeters(2.5);
         Measurement threeInches = Measurement.inInch(3);
-        assertEquals(twoInches.add(twoPoint5cm),threeInches);
+        Measurement actual = twoInches.add(twoPoint5cm);
+        assertEquals(actual,threeInches);
+        assertEquals(actual.toString(),threeInches.toString());
     }
-    
+
+    @Test
+    public void addingSameLengthUnitsShouldReturnResultInInches() throws InvalidTypeException {
+        Measurement twoPointFive = Measurement.inCentimeters(2.54);
+        Measurement anotherTwoPOintFive = Measurement.inCentimeters(2.54);
+        Measurement twoInches = Measurement.inInch(2);
+        Measurement actual = twoPointFive.add(anotherTwoPOintFive);
+        Measurement fiveCentimeters = Measurement.inCentimeters(5);
+        assertEquals(actual,twoInches);
+        assertEquals(fiveCentimeters.toString(),twoInches.toString());
+        assertEquals(actual.toString(),twoInches.toString());
+    }
+
+
+
 }

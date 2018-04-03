@@ -22,15 +22,12 @@ public enum Unit {
         return Math.round((quantity * conversionFactor)*10)/10;
     }
 
-    public MeasurementType getTypeOfUnit(){
-        return type;
-    }
     public boolean isOfSameBaseUnit(Unit unit) {
         return type == unit.type;
     }
 
     public int hash(double value) {
-        return Objects.hash(toBaseUnitValue(value),type);
+        return Objects.hash(toBaseUnitValue(value));
     }
 }
 
