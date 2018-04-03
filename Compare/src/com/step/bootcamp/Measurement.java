@@ -1,5 +1,7 @@
 package com.step.bootcamp;
 
+import com.sun.jdi.InvalidTypeException;
+
 import java.util.Objects;
 
 import static com.step.bootcamp.Unit.*;
@@ -34,7 +36,7 @@ public class Measurement {
 
     @Override
     public int hashCode() {
-        return Objects.hash(value);
+        return unit.hash(value);
     }
 
     public static Measurement inCentimeters(double centimeters) {
@@ -72,5 +74,11 @@ public class Measurement {
 
     public static Measurement inTon(double tons) {
         return new Measurement(tons,TON);
+    }
+
+    public Measurement add(Measurement other) throws InvalidTypeException {
+        if(!unit.isOfSameBaseUnit(other.unit)) throw  new InvalidTypeException("Performing operations with incampatable types");
+        double result=unit.toBaseUnitValue(value)+other.unit.toBaseUnitValue(other.value);
+        return Measurement.inInch(result);
     }
 }

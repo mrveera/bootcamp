@@ -1,9 +1,9 @@
 package com.step.bootcamp;
 
+import com.sun.jdi.InvalidTypeException;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 
 
@@ -13,6 +13,7 @@ public class MeasurementTest {
         Measurement oneFoot = Measurement.inFeet(1);
         Measurement expectedFoot = Measurement.inFeet(1);
         assertEquals(oneFoot, expectedFoot);
+        assertEquals(oneFoot.hashCode(),expectedFoot.hashCode());
     }
 
     @Test
@@ -20,6 +21,7 @@ public class MeasurementTest {
         Measurement oneFoot = Measurement.inFeet(1);
         Measurement twelveInches = Measurement.inInch(12);
         assertEquals(oneFoot, twelveInches);
+        assertEquals(oneFoot.hashCode(),twelveInches.hashCode());
     }
 
     @Test
@@ -27,6 +29,7 @@ public class MeasurementTest {
         Measurement oneFoot = Measurement.inFeet(1);
         Measurement twoFeet = Measurement.inFeet(2);
         assertNotEquals(oneFoot,twoFeet);
+        assertNotEquals(oneFoot.hashCode(),twoFeet.hashCode());
     }
 
     @Test
@@ -91,4 +94,29 @@ public class MeasurementTest {
         Measurement thousandKg = Measurement.inKilograms(1000);
         assertEquals(oneTon,thousandKg);
     }
+
+    @Test
+    public void addingTwo2InchesShouldbeEqualTo4Inches() throws InvalidTypeException {
+        Measurement twoInches = Measurement.inInch(2);
+        Measurement anotherTwoInches = Measurement.inInch(2);
+        Measurement fourInches = Measurement.inInch(4);
+        Measurement actual = twoInches.add(anotherTwoInches);
+        assertEquals(actual,fourInches);
+    }
+
+    @Test(expected = InvalidTypeException.class)
+    public void shouldNotAddLitreAndInches() throws InvalidTypeException {
+        Measurement twoInches = Measurement.inInch(2);
+        Measurement twoLitres = Measurement.inLitres(2);
+        Measurement nothing = twoLitres.add(twoInches);
+    }
+
+    @Test
+    public void addingOf2InchesAnd2Point5CentimetersShouldbeEqualTo3Inches() throws InvalidTypeException {
+        Measurement twoInches = Measurement.inInch(2);
+        Measurement twoPoint5cm = Measurement.inCentimeters(2.5);
+        Measurement threeInches = Measurement.inInch(3);
+        assertEquals(twoInches.add(twoPoint5cm),threeInches);
+    }
+    
 }
