@@ -39,12 +39,7 @@ public class MeasurementTest {
         assertNotEquals(oneFoot,sixInches);
     }
 
-    @Test
-    public void shouldGiveTrueForHalfFootAndSixInch() {
-        Measurement oneFoot = Measurement.inFeet(0.5);
-        Measurement sixInches = Measurement.inInch(6);
-        assertEquals(oneFoot,sixInches);
-    }
+
 
     @Test
     public void twoInchShouldBeEqualToFiveCentimeter() {
@@ -55,7 +50,7 @@ public class MeasurementTest {
 
     @Test
     public void fourInchesShouldBeEqualToTenCentimeter() {
-        Measurement tenCentimeter = Measurement.inCentimeters(10.15);
+        Measurement tenCentimeter = Measurement.inCentimeters(10);
         Measurement fourInch = Measurement.inInch(4);
         assertEquals(fourInch,tenCentimeter);
     }
@@ -121,18 +116,15 @@ public class MeasurementTest {
         assertEquals(actual.toString(),threeInches.toString());
     }
 
+
+
     @Test
-    public void addingSameLengthUnitsShouldReturnResultInInches() throws InvalidTypeException {
-        Measurement twoPointFive = Measurement.inCentimeters(2.54);
-        Measurement anotherTwoPOintFive = Measurement.inCentimeters(2.54);
-        Measurement twoInches = Measurement.inInch(2);
-        Measurement actual = twoPointFive.add(anotherTwoPOintFive);
-        Measurement fiveCentimeters = Measurement.inCentimeters(5);
-        assertEquals(actual,twoInches);
-        assertEquals(fiveCentimeters.toString(),twoInches.toString());
-        assertEquals(actual.toString(),twoInches.toString());
+    public void addingOneGallonAndOneLitreShouldbeEqualToFourPointSevenEight() throws InvalidTypeException {
+        Measurement oneGallon = Measurement.inGallon(1);
+        Measurement oneLitre = Measurement.inLitres(1);
+        Measurement fourPointSevenEight = Measurement.inLitres(4.78);
+        Measurement actual = oneGallon.add(oneLitre);
+        assertEquals(actual,fourPointSevenEight);
     }
-
-
 
 }

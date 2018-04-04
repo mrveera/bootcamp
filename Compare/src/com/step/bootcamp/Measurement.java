@@ -2,8 +2,6 @@ package com.step.bootcamp;
 
 import com.sun.jdi.InvalidTypeException;
 
-import java.util.Objects;
-
 import static com.step.bootcamp.Unit.*;
 
 public class Measurement {
@@ -28,10 +26,13 @@ public class Measurement {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Measurement length = (Measurement) o;
-        double valueInBaseunit = unit.toBaseUnitValue(value);
-        double otherValueInBaseUnit = length.unit.toBaseUnitValue(length.value);
-        return Double.compare(valueInBaseunit, otherValueInBaseUnit) == 0 && unit.isOfSameBaseUnit(length.unit);
+        Measurement other = (Measurement) o;
+        double valueInThisUnit = other.unit.toUnit(other.value,unit);
+        return compareDouble(valueInThisUnit,value) && unit.isOfSameBaseUnit(other.unit);
+    }
+
+    private boolean compareDouble(double valueInThisUnit, double value) {
+        return valueInThisUnit-value == 0;
     }
 
     @Override
@@ -77,8 +78,12 @@ public class Measurement {
     }
 
     public Measurement add(Measurement other) throws InvalidTypeException {
-        if(!unit.isOfSameBaseUnit(other.unit)) throw  new InvalidTypeException("Performing operations with incampatable types");
-        double result=unit.toBaseUnitValue(value)+other.unit.toBaseUnitValue(other.value);
-        return Measurement.inInch(result);
+        if( !unit.isOfSameBaseUnit(other.unit)  ) {
+            throw  new InvalidTypeException("Performing operations with incampatable types");
+        }
+        double otherUnitInThisUnit = other.unit.toUnit(other.value,unit);
+        return new Measurement(otherUnitInThisUnit+value,unit);
     }
+
+
 }
