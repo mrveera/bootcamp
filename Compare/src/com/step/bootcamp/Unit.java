@@ -5,32 +5,23 @@ import java.util.Objects;
 import static com.step.bootcamp.MeasurementType.*;
 
 public enum Unit {
-    INCH(1, LENGTH),FEET(12,LENGTH), CENTIMETER(0.4,LENGTH) , MILLI_METER(0.04,LENGTH),
-    LITRE(1,VOLUME) , GALLON(3.78,VOLUME),
-    GRAM(1,WEIGHT), KILOGRAM(1000,WEIGHT), TON(1000*1000,WEIGHT),
-    CELCIUS(33.8,TEMPARATURE){
-        @Override
-        public double toUnit(double value, Unit other) {
-            return (9/5*value+32);
-        }
-    },FAHRENHEIT(1,TEMPARATURE){
-        @Override
-        public double toUnit(double value, Unit other) {
-            return (value-32)*5/9;
-        }
-        
-    };
+    INCH(1, 0, LENGTH),FEET(12, 0, LENGTH), CENTIMETER(0.4, 0, LENGTH) , MILLI_METER(0.04, 0, LENGTH),
+    LITRE(1, 0, VOLUME) , GALLON(3.78, 0, VOLUME),
+    GRAM(1, 0, WEIGHT), KILOGRAM(1000, 0, WEIGHT), TON(1000*1000, 0, WEIGHT),
+    CELCIUS(9, -32+14.222222222222214, TEMPARATURE),FAHRENHEIT(5, 32, TEMPARATURE);
 
     private final double valueInBaseUnit;
+    private final double offset;
     private final MeasurementType type;
 
-    Unit(double valueInBaseUnit,MeasurementType type) {
+    Unit(double valueInBaseUnit, double offset, MeasurementType type) {
         this.valueInBaseUnit = valueInBaseUnit;
+        this.offset = offset;
         this.type = type;
     }
 
     public double toUnit(double value, Unit other) {
-        return (value*valueInBaseUnit) /other.valueInBaseUnit;
+        return valueInBaseUnit /other.valueInBaseUnit * value + other.offset;
     }
 
     public boolean isOfSameBaseUnit(Unit unit) {

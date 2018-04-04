@@ -59,7 +59,7 @@ public class UnitTest {
 
     @Test
     public void oneCelciusShouldBeEqualToThirtyThreePointEightFahrenheit() {
-        assertThat(CELCIUS.toUnit(1,FAHRENHEIT),is(33.0d));
+        assertThat(CELCIUS.toUnit(1,FAHRENHEIT),is(33.8d));
     }
 
     @Test

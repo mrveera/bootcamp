@@ -32,7 +32,7 @@ public class Measurement {
     }
 
     private boolean compareDouble(double valueInThisUnit, double value) {
-        return valueInThisUnit-value >= 0;
+        return Math.round(valueInThisUnit*10)/10==Math.round(value*10)/10;
     }
 
     @Override

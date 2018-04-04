@@ -123,9 +123,10 @@ public class MeasurementTest {
     public void addingOneGallonAndOneLitreShouldbeEqualToFourPointSevenEight() throws InvalidTypeException {
         Measurement oneGallon = Measurement.inGallon(1);
         Measurement oneLitre = Measurement.inLitres(1);
-        Measurement fourPointSevenEight = Measurement.inLitres(4.78);
-        Measurement actual = oneGallon.add(oneLitre);
-        assertEquals(actual,fourPointSevenEight);
+        Measurement fourPointSevenEight = Measurement.inLitres(4.8);
+        Measurement actual = oneLitre.add(oneGallon);
+        System.out.println(actual);
+        assertEquals(fourPointSevenEight,actual);
     }
 
     @Test
