@@ -32,7 +32,7 @@ public class Measurement {
     }
 
     private boolean compareDouble(double valueInThisUnit, double value) {
-        return valueInThisUnit-value == 0;
+        return valueInThisUnit-value >= 0;
     }
 
     @Override
@@ -85,5 +85,16 @@ public class Measurement {
         return new Measurement(otherUnitInThisUnit+value,unit);
     }
 
+    public static Measurement inCelcius(double celcius) {
+        return new Measurement(celcius,CELCIUS);
+    }
 
+    public static Measurement inFahrenheit(double fahrenheits) {
+        return new Measurement(fahrenheits,FAHRENHEIT);
+    }
+
+    public Measurement toUnit(Unit other) throws InvalidTypeException {
+        if(!unit.isOfSameBaseUnit(other)) throw new InvalidTypeException("Incompatable types");
+        return new Measurement(unit.toUnit(value,other),other);
+    }
 }

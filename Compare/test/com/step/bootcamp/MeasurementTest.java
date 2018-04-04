@@ -28,7 +28,7 @@ public class MeasurementTest {
     public void shouldGiveFalseForUnequalFeet() {
         Measurement oneFoot = Measurement.inFeet(1);
         Measurement twoFeet = Measurement.inFeet(2);
-        assertNotEquals(oneFoot,twoFeet);
+        assertNotEquals(twoFeet,oneFoot);
         assertNotEquals(oneFoot.hashCode(),twoFeet.hashCode());
     }
 
@@ -38,6 +38,7 @@ public class MeasurementTest {
         Measurement sixInches = Measurement.inInch(6);
         assertNotEquals(oneFoot,sixInches);
     }
+
 
 
 
@@ -127,4 +128,18 @@ public class MeasurementTest {
         assertEquals(actual,fourPointSevenEight);
     }
 
+    @Test
+    public void twoHunderedTwelveFahernheitShouldbeEqualToOneHunderedCelcius() {
+        Measurement oneHunderedCelcius = Measurement.inCelcius(100);
+        Measurement twoHunderedTweleveFahrenheit = Measurement.inFahrenheit(212);
+        assertEquals(oneHunderedCelcius,twoHunderedTweleveFahrenheit);
+    }
+
+
+    @Test
+    public void oneKgShouldCovertToThousandGrams() throws InvalidTypeException {
+        Measurement oneKg = Measurement.inKilograms(1);
+        Measurement thousandGrams = Measurement.inGrams(1000);
+        assertEquals(oneKg.toUnit(Unit.GRAM),thousandGrams);
+    }
 }

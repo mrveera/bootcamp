@@ -56,5 +56,15 @@ public class UnitTest {
     public void shouldConvertOneKgToThousandGrams() {
         assertEquals(KILOGRAM.toUnit(1, GRAM),1000,0);
     }
+
+    @Test
+    public void oneCelciusShouldBeEqualToThirtyThreePointEightFahrenheit() {
+        assertThat(CELCIUS.toUnit(1,FAHRENHEIT),is(33.0d));
+    }
+
+    @Test
+    public void twoHunderedTwelveFahernheitShouldbeEqualToOneHunderedCelcius() {
+        assertThat(FAHRENHEIT.toUnit(212,CELCIUS),is(100d));
+    }
 }
 

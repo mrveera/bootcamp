@@ -1,6 +1,6 @@
 package com.step.bootcamp;
 
 public enum MeasurementType {
-    LENGTH,VOLUME,WEIGHT;
+    LENGTH,VOLUME,WEIGHT,TEMPARATURE;
 
 }
