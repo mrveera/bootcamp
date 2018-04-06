@@ -6,32 +6,61 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 public class ParkingLotTest {
+
     @Test
-    public void shouldParkCarToParkingLot() {
+    public void shouldParkCarToParkingLot() throws UnableToParkException {
         ParkingLot twParkingLot = new ParkingLot(20);
-        Car swift = new Car("Swift", "AP-05-AJ-3476");
-        ParkingToken swiftToken=twParkingLot.park(new Object());
+        Object swiftToken=twParkingLot.park(new TestVehicle());
         assertNotNull(swiftToken);
     }
 
     @Test
-    public void shouldCheckoutTheCarThatIHaveTokenOf() throws ParkingLot.NoSuchTokenException {
+    public void shouldCheckoutTheCarThatIHaveTokenOf() throws NoSuchTokenException, UnableToParkException {
         ParkingLot twParkingLot = new ParkingLot(20);
-        Car swift = new Car("Swift", "AP-05-AJ-3476");
-        ParkingToken swiftToken=twParkingLot.park(swift);
+        TestVehicle swift = new TestVehicle();
+        Object swiftToken=twParkingLot.park(swift);
         Object mySwiftCar=twParkingLot.checkout(swiftToken);
         assertThat(swift,is(mySwiftCar));
     }
 
-    @Test(expected = ParkingLot.NoSuchTokenException.class)
-    public void shouldNotContainCheckedOutCar() throws ParkingLot.NoSuchTokenException {
+    @Test(expected = NoSuchTokenException.class)
+    public void shouldNotBeAbleCheckoutInvalidCar() throws NoSuchTokenException, UnableToParkException {
         ParkingLot twParkingLot = new ParkingLot(20);
-        Car swift = new Car("Swift", "AP-05-AJ-3476");
-        ParkingToken swiftToken=twParkingLot.park(swift);
-        Object mySwiftCar=twParkingLot.checkout(swiftToken);
+        TestVehicle swift = new TestVehicle();
+        Object swiftToken=twParkingLot.park(swift);
+        twParkingLot.checkout(swiftToken);
         twParkingLot.checkout(swiftToken);
     }
 
+    @Test
+    public void shouldReturnTrueWhenParkingLotCapacityIsZero() {
+        ParkingLot parkingLot = new ParkingLot(0);
+        assertTrue(parkingLot.isFull());
+    }
 
+    @Test
+    public void shouldReturnFalseWhenParkingLotCapacityIsOneAndNoCarsParked() {
+        ParkingLot parkingLot = new ParkingLot(1);
+        assertFalse(parkingLot.isFull());
+    }
 
+    @Test(expected = UnableToParkException.class)
+    public void shouldNotAddCarWhenLotIsFull() throws UnableToParkException {
+        ParkingLot parkingLot = new ParkingLot(2);
+        parkingLot.park(new TestVehicle());
+        parkingLot.park(new TestVehicle());
+        parkingLot.park(new TestVehicle());
+    }
+
+    @Test
+    public void shouldReturnFlaseAfterCheckingoutCarFromParkingLotWhichIsFull() throws UnableToParkException, NoSuchTokenException {
+        ParkingLot parkingLot = new ParkingLot(2);
+        parkingLot.park(new TestVehicle());
+        Object secondCar = parkingLot.park(new TestVehicle());
+        parkingLot.checkout(secondCar);
+        assertFalse(parkingLot.isFull());
+    }
+
+    private class TestVehicle implements Vehicle {
+    }
 }
