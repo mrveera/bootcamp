@@ -1,2 +1,15 @@
-Alt + cmd + n == inline statement
+Alt + cmd + n = inline statement
+Alt + cmd + l = indent
+Ctrl + shift + r = run tests
+Ctrl + shift + d = run debug
+alt + fn + F8 (in debug) = evaluate expression
+fn + F9 (in debug) = continue
+cmd + n = new file/dir/class/package
+ctrl + c = new class/enum/interface
+cmd + F9 = compile
+cmd + l = jump to line number
+cmd + b = jump to definition/jump to invocation
+cmd + shift + t = jump to tests/create tests
+cmd + s = save
+cmd + Alt + t = Add surrounding
 

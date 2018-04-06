@@ -33,7 +33,7 @@ public class AttendantTest {
     }
 
     @Test(expected = UnableToParkException.class)
-    public void shoulNotAddCarWhenAllParkingLotsFull() throws UnableToParkException {
+    public void shouldNotAddCarWhenAllParkingLotsFull() throws UnableToParkException {
         Attendant attendant = new Attendant();
         attendant.addLot(new ParkingLot(0));
         attendant.addLot(new ParkingLot(0));
@@ -55,7 +55,7 @@ public class AttendantTest {
     }
 
     @Test
-    public void shoudBeAbleCheckoutCarParkedInSecondLot() throws UnableToParkException, NoSuchTokenException {
+    public void shouldBeAbleCheckoutCarParkedInSecondLot() throws UnableToParkException, NoSuchTokenException {
         attendant.addLot(new ParkingLot(0));
         attendant.addLot(new ParkingLot(1));
         TestCar swift = new TestCar(); 
@@ -64,8 +64,45 @@ public class AttendantTest {
         assertThat(swift,is(mySwift));
     }
 
-    @Test
-    public void shouldNotBeAbleCarWhichIsNotParked() {
+    @Test(expected = NoSuchTokenException.class)
+    public void shouldNotBeAbleCheckoutCarWhichIsUnParked() throws UnableToParkException, NoSuchTokenException {
+        attendant.addLot(new ParkingLot(0));
+        attendant.addLot(new ParkingLot(1));
+        Object token=attendant.park(new TestCar());
+        attendant.checkout(token);
+        attendant.checkout(token);
+    }
 
+    @Test
+    public void lotShouldInformAttendantWhenItIsFull() throws UnableToParkException {
+        class TestAttendant extends  Attendant {
+            public boolean fullTriggered=false;
+            @Override
+            public void full(){
+                fullTriggered=true;
+            }
+        }
+
+        TestAttendant testAttendant=new TestAttendant();
+        testAttendant.addLot(new ParkingLot(1));
+        testAttendant.park(new TestCar());
+        assertTrue(testAttendant.fullTriggered);
+    }
+
+    @Test
+    public void lotShouldInformAttendantWhenItHasSpace() throws UnableToParkException, NoSuchTokenException {
+        class TestAttendant extends  Attendant {
+            public boolean hasSpaceTriggered=false;
+            @Override
+            public void hasSpace(){
+                hasSpaceTriggered=true;
+            }
+        }
+
+        TestAttendant testAttendant=new TestAttendant();
+        testAttendant.addLot(new ParkingLot(1));
+        Object token=testAttendant.park(new TestCar());
+        testAttendant.checkout(token);
+        assertTrue(testAttendant.hasSpaceTriggered);
     }
 }

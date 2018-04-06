@@ -1,45 +1,68 @@
 package com.step.bootcamp;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ParkingLot {
     private final int capacity;
-    private HashMap<Object,Vehicle> parkedCars;
+    private final ArrayList<ParkingLotListener> listeners;
+    private HashMap<Object, Vehicle> parkedVehicles;
 
     public ParkingLot(int capacity) {
         this.capacity = capacity;
-        this.parkedCars=new HashMap(capacity);
+        this.parkedVehicles = new HashMap(capacity);
+        this.listeners= new ArrayList<>();
     }
 
     public Object park(Vehicle vehicle) throws UnableToParkException {
-        if(isAlredyParked(vehicle)) {
+        if (isAlreadyParked(vehicle)) {
             throw new UnableToParkException("The vehicle you are trying to park is already parked");
         }
-        if(isFull()) {
+        if (isFull()) {
             throw new UnableToParkException("Parking lot is full try after sometime ...");
         }
         Object token = new Object();
-        parkedCars.put(token, vehicle);
+        parkedVehicles.put(token, vehicle);
+        if(isFull()){
+            broadcastFull();
+        }
         return token;
     }
 
-    private boolean isAlredyParked(Vehicle vehicle) {
-        return parkedCars.containsValue(vehicle);
+    private void broadcastFull() {
+        for (ParkingLotListener listener : listeners) {
+            listener.full();
+        }
+    }
+
+    private boolean isAlreadyParked(Vehicle vehicle) {
+        return parkedVehicles.containsValue(vehicle);
     }
 
     private boolean hasCarFor(Object token) {
-        return this.parkedCars.containsKey(token);
+        return this.parkedVehicles.containsKey(token);
     }
 
     public Vehicle checkout(Object token) throws NoSuchTokenException {
-        if (hasCarFor(token)){
-         return parkedCars.remove(token);
+        if (hasCarFor(token)) {
+            if(isFull()) broadcastHasSpace();
+            Vehicle vehicle = parkedVehicles.remove(token);
+            return vehicle;
         }
-        throw  new NoSuchTokenException(token);
+        throw new NoSuchTokenException(token);
+    }
+
+    private void broadcastHasSpace() {
+        for (ParkingLotListener listener : listeners) {
+            listener.hasSpace();
+        }
     }
 
     public boolean isFull() {
-        return this.parkedCars.size() == capacity;
+        return this.parkedVehicles.size() == capacity;
     }
 
+    public void addListener(ParkingLotListener foo) {
+        listeners.add(foo);
+    }
 }
