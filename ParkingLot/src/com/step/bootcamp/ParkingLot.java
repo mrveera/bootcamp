@@ -27,7 +27,7 @@ public class ParkingLot {
         return parkedCars.containsValue(vehicle);
     }
 
-    private boolean hasCarFor(Object token) {
+    protected boolean hasCarFor(Object token) {
         return this.parkedCars.containsKey(token);
     }
 
@@ -42,4 +42,8 @@ public class ParkingLot {
         return this.parkedCars.size() == capacity;
     }
 
+
+    public boolean isGreaterCapacityThan(ParkingLot lotToCompare) {
+        return capacity>lotToCompare.capacity;
+    }
 }

@@ -73,4 +73,24 @@ public class AttendantTest {
         attendant.checkout(token);
         attendant.checkout(token);
     }
+
+    @Test
+    public void shouldParkTheVehicleInLotHavingLargeCapacity() throws UnableToParkException {
+        ParkingLot parkingLot = new ParkingLot(3);
+        attendant.addLot(new ParkingLot(2));
+        attendant.addLot(parkingLot);
+        Object token = attendant.park(new TestCar());
+        assertTrue(parkingLot.hasCarFor(token));
+    }
+
+    @Test
+    public void shouldParkVehicleInNextLargeCapacityLotIfLargeCapacityLotIsFull() throws UnableToParkException {
+        attendant.addLot(new ParkingLot(2));
+        ParkingLot parkingLot2 = new ParkingLot(1);
+        attendant.addLot(parkingLot2);
+        attendant.park(new TestCar());
+        attendant.park(new TestCar());
+        Object token = attendant.park(new TestCar());
+        assertTrue(parkingLot2.hasCarFor(token));
+    }
 }

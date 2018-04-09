@@ -19,8 +19,14 @@ public class Attendant {
     }
 
     private ParkingLot getFreeParkingLot() throws UnableToParkException {
+        ParkingLot LargeCapacityLot = lots.get(0);
         for (ParkingLot lot : lots) {
-            if (!lot.isFull()) return lot;
+            if ((lot.isGreaterCapacityThan(LargeCapacityLot) && !lot.isFull()) || LargeCapacityLot.isFull()) {
+                LargeCapacityLot = lot;
+            }
+        }
+        if (!LargeCapacityLot.isFull()){
+            return LargeCapacityLot;
         }
         throw  new UnableToParkException("All parking lots full");
     }

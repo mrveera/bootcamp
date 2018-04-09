@@ -63,4 +63,18 @@ public class ParkingLotTest {
 
     private class TestVehicle implements Vehicle {
     }
+
+    @Test
+    public void shouldReturnTrueIfTheGivenLotHasGreaterCapacityThanIt() {
+        ParkingLot parkingLot = new ParkingLot(3);
+        ParkingLot lotToCompare = new ParkingLot(2);
+        assertTrue(parkingLot.isGreaterCapacityThan(lotToCompare));
+    }
+
+    @Test
+    public void shouldReturnFalseIfTheGivenLotHasLesserCapacityThanIt() {
+        ParkingLot parkingLot = new ParkingLot(2);
+        ParkingLot lotToCompare = new ParkingLot(3);
+        assertFalse(parkingLot.isGreaterCapacityThan(lotToCompare));
+    }
 }
