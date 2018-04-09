@@ -64,8 +64,13 @@ public class AttendantTest {
         assertThat(swift,is(mySwift));
     }
 
-    @Test
-    public void shouldNotBeAbleCarWhichIsNotParked() {
 
+    @Test(expected = NoSuchTokenException.class)
+    public void shouldNotBeAbleCheckoutCarWhichIsUnParked() throws UnableToParkException, NoSuchTokenException {
+        attendant.addLot(new ParkingLot(0));
+        attendant.addLot(new ParkingLot(1));
+        Object token=attendant.park(new TestCar());
+        attendant.checkout(token);
+        attendant.checkout(token);
     }
 }
